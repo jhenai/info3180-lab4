@@ -88,6 +88,18 @@ def add_header(response):
 def page_not_found(error):
     """Custom 404 page."""
     return render_template('404.html'), 404
+    
+    
+@app.route('/filelisting')    
+def file_traverse():
+    rootdir = os.getcwd()
+    filelist=[]
+    print rootdir
+    for subdir, dirs, files in os.walk(rootdir + '/app/static/uploads'):
+        for file in files:
+            filelist.append(os.path.join(subdir, file))
+        return render_template('file_list.html', file=filelist)
+    return render_template('file_list.html')
 
 
 if __name__ == '__main__':

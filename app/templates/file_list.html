@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<h1 class="page-header">Files</h1>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="alert alert-success">
+      <ul class="flashes">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endwith %}
+<ul>
+{% for file in file %}
+
+  <li> {{file}}</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
