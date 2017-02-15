@@ -92,6 +92,9 @@ def page_not_found(error):
     
 @app.route('/filelisting')    
 def file_traverse():
+    if not session.get('logged_in'):
+        abort(401)
+        
     rootdir = os.getcwd()
     filelist=[]
     print rootdir
