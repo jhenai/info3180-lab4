@@ -14,10 +14,25 @@
     </div>
   {% endif %}
 {% endwith %}
-<ul>
-{% for file in file %}
 
+
+<h3>Picture uploads</h3><hr>
+<ul class="list-unstyled">
+{% for pic in pic %}
+ <li>
+    <img src="static/uploads/{{pic}}">
+    </li>
+    {% endfor %}
+    </ul>
+
+<h3> Additional file uploads</h3><hr>
+
+<ul>
+  
+{% for file in file %}
   <li> {{file}}</li>
+  
+ 
 {% endfor %}
 </ul>
 

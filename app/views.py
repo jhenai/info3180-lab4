@@ -9,7 +9,7 @@ from app import app
 from flask import render_template, request, redirect, url_for, flash, session, abort, jsonify
 from werkzeug.utils import secure_filename
 
-
+PIC_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 ###
 # Routing for your application.
 ###
@@ -97,13 +97,20 @@ def file_traverse():
         
     rootdir = os.getcwd()
     filelist=[]
+    pic=[]
     print rootdir
     for subdir, dirs, files in os.walk(rootdir + '/app/static/uploads'):
         for file in files:
-            filelist.append(os.path.join(subdir, file))
-        return render_template('file_list.html', file=filelist)
+            f= str(file)
+            if allowed_file(f):
+                pic.append(f)
+            else:
+                filelist.append(os.path.join(subdir, file))
+        return render_template('file_list.html', file=filelist, pic=pic)
     return render_template('file_list.html')
 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in PIC_EXTENSIONS
 
 if __name__ == '__main__':
     app.run(debug=True,host="0.0.0.0",port="8080")
